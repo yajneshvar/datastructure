@@ -4,12 +4,6 @@ import java.util.List;
 public interface MovingAverageList<E> {
 
     /**
-     * Returns the moving average for a fixed last n item
-     * @return the moving average
-     */
-    Double getMovingAverage();
-
-    /**
      * Returns the moving average for a the specified last n item
      * @return the moving average
      */
@@ -36,6 +30,6 @@ public interface MovingAverageList<E> {
      * Returns all the elements added
      * @return the elements as a list
      */
-    List<E> getList();
+    List<? extends E> getList();
 
 }

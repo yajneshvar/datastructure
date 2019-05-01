@@ -3,20 +3,11 @@ import java.util.*;
 public class MovingAvgListImpl<E extends Element> implements MovingAverageList<E> {
 
     private LinkedList<E> list;
-    Integer capacity;
-    private Integer fixedPeriod;
-    private Double movingAverage;
+    private Integer capacity;
 
-
-    public MovingAvgListImpl(Integer fixedPeriod, Integer capacity) {
+    public MovingAvgListImpl( Integer capacity) {
         list = new LinkedList<>();
-        this.fixedPeriod = fixedPeriod;
         this.capacity = capacity;
-    }
-
-    @Override
-    public Double getMovingAverage() {
-        return movingAverage;
     }
 
     @Override
@@ -57,7 +48,7 @@ public class MovingAvgListImpl<E extends Element> implements MovingAverageList<E
     }
 
     @Override
-    public List<E> getList() {
+    public List<? extends E> getList() {
         return Collections.unmodifiableList(list);
     }
 }

@@ -26,7 +26,7 @@ public class AppTest {
             elementList.add(new ElementImpl("A", (double) i));
         }
         buffer.addAll(elementList);
-        double movingAvg = buffer.movingAverage(3);
+        double movingAvg = buffer.getMovingAverage(3);
         int size = buffer.getList().size();
         assertEquals(size, 5);
         assertEquals(movingAvg, 5, 0.1d);
@@ -44,6 +44,21 @@ public class AppTest {
         assertEquals(size, 5);
 
     }
+
+    @Test
+    public void testAddingMoreThanCapacityAvgList() {
+        MovingAvgListImpl<Element> buffer = new MovingAvgListImpl<>(5);
+        List<ElementImpl> elementList = new ArrayList<>(6);
+        for(int i =0; i < 7; i++) {
+            elementList.add(new ElementImpl("A", (double) i));
+        }
+        buffer.addAll(elementList);
+        double movingAvg = buffer.getMovingAverage(3);
+        int size = buffer.getList().size();
+        assertEquals(size, 5);
+        assertEquals(movingAvg, 5, 0.1d);
+    }
+
 
 
 }

@@ -1,7 +1,6 @@
-import java.lang.reflect.Array;
 import java.util.*;
 
-public class CircularBuffer<E extends Element> {
+public class CircularBuffer<E extends Element> implements MovingAverageList<E> {
 
     private Object[] list;
     private Integer count;
@@ -24,21 +23,24 @@ public class CircularBuffer<E extends Element> {
         return writePointer;
     }
 
+    @Override
     public void add(E e) {
         int writeIndex = getWritePostion();
         list[writeIndex] = e;
     }
 
+    @Override
     public void addAll(Collection<? extends E> items) {
         items.forEach( item -> add(item));
     }
 
-
+    @Override
     public E get(Integer index) {
         return (E) list[index];
     }
 
-    public Double movingAverage(Integer n) {
+    @Override
+    public Double getMovingAverage(Integer n) {
         Double sum = 0d;
         if (count < capacity) {
             for (int i = writePointer; i > 0; i--) {
@@ -56,7 +58,9 @@ public class CircularBuffer<E extends Element> {
 
     }
 
-    public List<Element> getList() {
-        return Arrays.asList(Arrays.copyOf(list, list.length, Element[].class));
+    @Override
+    public List<? extends E> getList() {
+        List<?> tempList = Arrays.asList(list);
+        return (List<? extends E>) tempList;
     }
 }
