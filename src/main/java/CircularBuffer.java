@@ -2,9 +2,21 @@ import java.util.*;
 
 public class CircularBuffer<E extends Element> implements MovingAverageList<E> {
 
+    /**
+     * Array to keep track of elements added
+     */
     private Object[] list;
+    /**
+     * Total items added to datastructure
+     */
     private Integer count;
+    /**
+     * Max items to keep track off
+     */
     private Integer capacity;
+    /**
+     * Next location to insert item
+     */
     private Integer writePointer;
 
 
@@ -15,6 +27,10 @@ public class CircularBuffer<E extends Element> implements MovingAverageList<E> {
         writePointer = -1;
     }
 
+    /**
+     * Returns next available position to insert item
+     * @return next position
+     */
     private Integer getWritePostion() {
         writePointer = (writePointer + 1) % capacity;
         if (count < capacity) {
@@ -39,6 +55,13 @@ public class CircularBuffer<E extends Element> implements MovingAverageList<E> {
         return (E) list[index];
     }
 
+    /**
+     * Calculate the moving average for the last n elements
+     * The items are read from the current write position and wraps around
+     * to the next item added into the datastructure
+     * @param n
+     * @return moving average
+     */
     @Override
     public Double getMovingAverage(Integer n) {
         Double sum = 0d;

@@ -11,25 +11,19 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
-    }
-
-
 
     @Test
     public void testAddingMoreThanCapacity() {
         CircularBuffer<Element> buffer = new CircularBuffer<>(5);
         List<ElementImpl> elementList = new ArrayList<>(6);
-        for(int i =0; i < 7; i++) {
+        for(int i =0; i < 8; i++) {
             elementList.add(new ElementImpl("A", (double) i));
         }
         buffer.addAll(elementList);
         double movingAvg = buffer.getMovingAverage(3);
         int size = buffer.getList().size();
         assertEquals(size, 5);
-        assertEquals(movingAvg, 5, 0.1d);
+        assertEquals(movingAvg, 6, 0.1d);
     }
 
     @Test
